@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quotes Harian</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:#111;color:#fff;font-family:Inter,system-ui,sans-serif;overflow:hidden}
+#bg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s}
+.wrap{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 20px 16px;text-align:center}
+#clock,#date{position:fixed;transform:translate(-50%,-50%);white-space:nowrap;text-shadow:0 2px 12px #0008;z-index:2}
+#clock{font-weight:300;letter-spacing:2px;font-variant-numeric:tabular-nums}
+#date{opacity:.9;letter-spacing:1px}
+.foot{position:absolute;left:0;right:0;bottom:14px}
+.mid{max-width:760px;text-shadow:0 2px 16px #000a}
+.chip{display:inline-block;padding:4px 14px;border:1px solid #fff9;border-radius:20px;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;backdrop-filter:blur(6px);background:#0003}
+#q{font:italic 500 clamp(21px,5.4vw,38px)/1.45 'Playfair Display',Georgia,serif;margin:0}
+#nm{margin-top:20px;font-size:13px;opacity:.92;letter-spacing:.5px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+button{font:500 13px Inter,sans-serif;color:#fff;background:#0005;border:1px solid #fff6;border-radius:24px;padding:10px 16px;backdrop-filter:blur(8px);cursor:pointer}
+button:active{background:#fff3}
+.fs .bar,.fs #st{opacity:0;pointer-events:none}.fs .wrap:hover .bar{opacity:1;pointer-events:auto}
+#st{font-size:11px;opacity:.6;margin-top:6px}
+#modal,#adm{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;z-index:9;padding:20px}
+#modal.on,#adm.on{display:flex}
+.box{background:#1b1b1f;border-radius:18px;padding:20px;max-width:340px;width:100%;text-align:center;max-height:88vh;overflow:auto}
+.box h3{margin:0 0 12px;font-weight:500}.box button{display:block;width:100%;margin:8px 0;border-radius:12px}
+#prev{max-width:100%;max-height:50vh;border-radius:10px;margin-bottom:8px;display:none}
+.box.a{max-width:400px;text-align:left}.box.a label{display:block;font-size:12px;opacity:.8;margin:10px 0 2px}.box.a input[type=range]{width:100%}.box.a h4{margin:16px 0 4px;font-weight:500;font-size:14px;color:#9fd}
+.th{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.th div{position:relative;width:64px;height:64px;border-radius:8px;background-size:cover;background-position:center}.th b{position:absolute;top:-6px;right:-6px;background:#e11;border-radius:50%;width:20px;height:20px;line-height:20px;text-align:center;font-size:12px;cursor:pointer}
+select{width:100%;padding:8px;border-radius:8px;background:#2a2a30;color:#fff;border:1px solid #fff3}
+</style></head><body>
+<canvas id="bg"></canvas>
+<div class="wrap">
+ <div id="clock">--:--:--</div><div id="date"></div>
+ <div class="mid"><span class="chip" id="cat"></span><p id="q"></p><div id="nm">— M. Abdur Rizal, S.Kep.,Ns.,CH.,CHt.</div></div>
+ <div class="foot"><div class="bar">
+  <button id="bp">‹ Kemarin</button><button id="bt">Hari ini</button><button id="bn">Besok ›</button>
+  <button id="bd">⬇ Download</button><button id="bf">⛶ Layar Penuh</button><button id="ba">⚙ Admin</button></div><div id="st"></div></div>
+</div>
+<div id="modal"><div class="box"><h3>Download Quotes</h3>
+ <img id="prev" alt="">
+ <button data-s="1080,1080,IG-Post">Instagram Post 1:1 (1080×1080)</button>
+ <button data-s="1080,1350,IG-Post-4x5">Instagram Post 4:5 (1080×1350)</button>
+ <button data-s="1080,1920,Story">Story WA / IG / TikTok 9:16 (1080×1920)</button>
+ <button id="mc">Tutup</button></div></div>
+<div id="adm"><div class="box a"><h3>⚙ Menu Admin</h3>
+ <h4>Background sendiri</h4>
+ <input type="file" id="up" accept="image/*" multiple style="font-size:12px;width:100%">
+ <div class="th" id="th"></div>
+ <label>Cara pemakaian background</label>
+ <select id="mode"><option value="mix">Campur dengan latar bawaan (ganti tiap hari)</option><option value="own">Hanya foto milik saya</option></select>
+ <h4>Jam &amp; tanggal</h4><div id="sl"></div>
+ <button id="rs">Reset pengaturan</button><button id="ac">Selesai</button>
+ <div style="font-size:11px;opacity:.6;margin-top:6px">Pengaturan dan foto tersimpan di browser perangkat ini.</div></div></div>
+<script>
+const NAME="M. Abdur Rizal, S.Kep.,Ns.,CH.,CHt.";
+const CATS=["Cinta","Kehidupan","Semangat","Tuhan","Psikologis","Ilmu"];
+const SC=["Hutan","Air Terjun","Pantai","Langit","Sore","Kota","Kafe","Daun","Kayu","Batu","Ruang Tamu","Ruang Kerja"];
+const Q=[
+["Cinta bukan tentang menemukan yang sempurna, tetapi belajar menerima ketidaksempurnaan dengan tulus.","Cinta yang sehat membuatmu tumbuh, bukan membuatmu kecil.","Mencintai adalah hadir sepenuhnya, bahkan di hari yang biasa-biasa saja.","Mulailah mencintai dirimu, agar cintamu pada orang lain tidak datang dari kekosongan.","Kasih sayang terbaik sering terucap lewat perhatian kecil yang konsisten.","Cinta sejati tidak menuntut selalu benar, ia memilih untuk saling memahami.","Rumah bukan sekadar bangunan, melainkan tempat hati merasa pulang."],
+["Hidup tidak harus cepat, yang penting terus melangkah ke arah yang benar.","Setiap hari adalah halaman baru; tulislah dengan syukur dan keberanian.","Bahagia sering bersembunyi di hal sederhana yang kita lupa syukuri.","Tidak semua badai datang untuk merusak, sebagian hadir untuk membersihkan jalanmu.","Tenang bukan berarti tidak ada masalah, melainkan mampu berdamai di tengahnya.","Kamu tidak terlambat; setiap orang punya waktu mekarnya sendiri.","Hidup yang baik dibangun dari kebiasaan kecil yang dijaga setiap hari."],
+["Satu langkah kecil hari ini lebih berharga daripada seribu rencana yang tak dimulai.","Jangan menyerah; lelahmu hari ini adalah bekal kuatmu esok hari.","Percayalah pada proses, hasil hanya soal waktu dan ketekunan.","Kamu lebih kuat dari keraguan yang berbisik di kepalamu.","Bangun, berdoa, berusaha, lalu serahkan hasilnya dengan lapang dada.","Jatuh itu biasa, bangkit itulah yang membuatmu luar biasa.","Mimpi besar butuh disiplin kecil yang dilakukan tanpa henti."],
+["Tuhan tidak pernah terlambat; Dia menyiapkan yang terbaik pada waktu yang paling tepat.","Saat hatimu sempit, lapangkan dengan doa; Dia selalu mendengar.","Bersyukurlah, sebab nikmat yang kecil pun datang dari Kasih yang besar.","Serahkan yang tak mampu kau kendalikan, dan tenanglah dalam penjagaan-Nya.","Setiap ujian adalah cara Tuhan mendekatkan hamba kepada-Nya.","Ketika dunia terasa berat, sujud adalah tempat paling ringan untuk berbagi cerita.","Ikhlas adalah ketika hatimu tenang, meski hasilnya tak seperti harapan."],
+["Emosi yang diakui akan mereda; emosi yang ditekan akan mencari jalan keluar lain.","Merawat kesehatan mental bukan kelemahan, melainkan bentuk keberanian.","Kamu boleh istirahat; beristirahat bukan berarti menyerah.","Pikiran hanyalah pikiran, tidak semuanya fakta yang harus kamu percayai.","Bicara pada seseorang yang kamu percaya adalah langkah awal penyembuhan.","Bernapas perlahan adalah cara paling sederhana untuk pulang ke diri sendiri.","Menerima perasaan hari ini adalah dasar untuk tumbuh esok hari."],
+["Ilmu adalah cahaya; semakin banyak belajar, semakin terang jalan yang kau tempuh.","Orang yang berhenti belajar sebenarnya sedang berhenti tumbuh.","Rendah hati adalah tanda ilmu yang sudah berbuah.","Bertanya bukan tanda bodoh, tetapi pintu menuju paham.","Ilmu yang bermanfaat adalah yang dibagikan dan diamalkan.","Membaca sehari satu halaman, setahun menjadi pengetahuan yang mengubah hidup.","Belajar sepanjang hayat adalah investasi yang tidak pernah merugi."]
+];
+const $=id=>document.getElementById(id);
+let off=0,gen={};
+
+const dayN=o=>{const d=new Date();return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5)+o};
+function pick(n){const c=n%6;const pool=Q[c].concat(Object.values(gen).flat().filter(x=>x.c===c).map(x=>x.t));
+ const L=bgs.length;return{c,t:pool[Math.floor(n/6)%pool.length],s:L?(cfg.mode==="own"?12+n%L:n%(12+L)):n%12,n}}
+function rng(s){return()=>(s=(s*16807+7)%2147483647)/2147483647}
+function scene(x,w,h,i,seed){const r=rng(seed*97+13+i),G=(a,b,c)=>{const g=x.createLinearGradient(0,a,0,b);c.forEach((k,j)=>g.addColorStop(j/(c.length-1),k));return g};
+ const F=(g,rx,ry,rw,rh)=>{x.fillStyle=g;x.fillRect(rx,ry,rw,rh)};
+ const hills=(y,col,amp)=>{x.fillStyle=col;x.beginPath();x.moveTo(0,h);let o=r()*9;for(let p=0;p<=w;p+=20)x.lineTo(p,y+Math.sin(p/w*5+o)*amp+Math.sin(p/w*13+o)*amp/3);x.lineTo(w,h);x.fill()};
+ const sun=(cx,cy,R,c)=>{const g=x.createRadialGradient(cx,cy,0,cx,cy,R);g.addColorStop(0,c);g.addColorStop(1,"#0000");x.fillStyle=g;x.fillRect(0,0,w,h)};
+ const pines=(y,col,n,s)=>{x.fillStyle=col;for(let k=0;k<n;k++){const px=r()*w,ph=s*(.6+r()*.8);x.beginPath();x.moveTo(px,y-ph);x.lineTo(px-ph*.28,y);x.lineTo(px+ph*.28,y);x.fill();x.fillRect(px-2,y,4,h)}};
+ if(i==0){F(G(0,h,["#cfe8d0","#5f9a74","#1d4a3a"]),0,0,w,h);sun(w*.7,h*.2,w*.6,"#fff8");pines(h*.7,"#2d6a4f66",14,h*.45);pines(h*.85,"#1b4332aa",12,h*.5);pines(h*1.02,"#081c15",9,h*.6)}
+ else if(i==1){F(G(0,h,["#8ec5a0","#2d6a4f","#0b2b20"]),0,0,w,h);hills(h*.35,"#1b4332",40);const cx=w*.5;x.fillStyle="#ffffffcc";x.fillRect(cx-w*.05,h*.35,w*.1,h*.4);for(let k=0;k<30;k++){x.fillStyle="#fff"+Math.floor(r()*9+3).toString(16)+"0".repeat(0);x.fillRect(cx-w*.05+r()*w*.1,h*.35,2,h*.4)}sun(cx,h*.78,w*.4,"#ffffff88");hills(h*.85,"#081c15",25)}
+ else if(i==2){F(G(0,h,["#ffd9a8","#ffb4a2","#7fc8d9"]),0,0,w,h);sun(w*.5,h*.45,w*.45,"#fff5");F(G(h*.5,h*.72,["#48a9c5","#1d6f8a"]),0,h*.5,w,h*.22);for(let k=0;k<25;k++){x.fillStyle="#ffffff44";x.fillRect(r()*w,h*.5+r()*h*.2,w*.1,2)}F(G(h*.72,h,["#f4e1b8","#d8b988"]),0,h*.72,w,h*.28)}
+ else if(i==3){F(G(0,h,["#2b6cb0","#74b9ff","#ffd6e0"]),0,0,w,h);x.fillStyle="#ffffffaa";for(let k=0;k<14;k++){const cx=r()*w,cy=r()*h*.8,s=w*(.1+r()*.15);for(let j=0;j<5;j++){x.beginPath();x.ellipse(cx+j*s*.35,cy+Math.sin(j)*s*.1,s*.4,s*.22,0,0,7);x.fill()}}}
+ else if(i==4){F(G(0,h,["#2c3e75","#c44d6b","#ff9a56","#ffd17a"]),0,0,w,h);sun(w*.5,h*.62,w*.5,"#fff8");hills(h*.72,"#3a1f4a",30);hills(h*.85,"#1a1030",25)}
+ else if(i==5){F(G(0,h,["#1b1f3b","#6a4c93","#f08a5d"]),0,0,w,h);for(let k=0;k<60;k++){const bw=w*(.04+r()*.07),bh=h*(.15+r()*.4),bx=r()*w;x.fillStyle="#0b0b1a";x.fillRect(bx,h-bh,bw,bh);for(let m=0;m<bh/22;m++)for(let n=0;n<bw/16;n++)if(r()>.6){x.fillStyle="#ffd27a";x.fillRect(bx+5+n*16,h-bh+8+m*22,6,9)}}}
+ else if(i==6){F(G(0,h,["#3b2a20","#7a5236","#2a1b12"]),0,0,w,h);for(let k=0;k<26;k++){x.fillStyle=`hsla(${30+r()*20},90%,${55+r()*25}%,${.15+r()*.3})`;x.beginPath();x.arc(r()*w,r()*h*.7,w*(.02+r()*.06),0,7);x.fill()}F(G(h*.75,h,["#4a3322","#24160d"]),0,h*.75,w,h*.25);x.fillStyle="#f5e6d3";x.fillRect(w*.3,h*.7,w*.14,h*.05);x.fillRect(w*.36,h*.74,w*.02,h*.02)}
+ else if(i==7){F(G(0,h,["#c9e4a5","#6aa84f","#1f5130"]),0,0,w,h);for(let k=0;k<45;k++){x.save();x.translate(r()*w,r()*h);x.rotate(r()*6.3);x.fillStyle=`hsla(${90+r()*50},55%,${25+r()*30}%,.7)`;const s=w*(.06+r()*.12);x.beginPath();x.ellipse(0,0,s,s*.4,0,0,7);x.fill();x.restore()}}
+ else if(i==8){F(G(0,h,["#8a5a3b","#5e3a22"]),0,0,w,h);for(let k=0;k<90;k++){x.strokeStyle=`rgba(${r()>.5?"40,20,8":"200,150,100"},.18)`;x.lineWidth=1+r()*3;x.beginPath();let y=r()*h;x.moveTo(0,y);for(let p=0;p<=w;p+=40)x.lineTo(p,y+Math.sin(p/90+k)*8);x.stroke()}for(let k=1;k<5;k++){x.fillStyle="#0004";x.fillRect(0,h*k/5,w,3)}}
+ else if(i==9){F(G(0,h,["#b8bdc4","#6b7280","#2d3138"]),0,0,w,h);for(let k=0;k<22;k++){const rx=r()*w,ry=h*.4+r()*h*.6,s=w*(.08+r()*.18);const g=x.createRadialGradient(rx-s*.3,ry-s*.3,s*.1,rx,ry,s);g.addColorStop(0,"#d8dce1");g.addColorStop(1,"#4b5059");x.fillStyle=g;x.beginPath();x.ellipse(rx,ry,s,s*.65,0,0,7);x.fill()}}
+ else if(i==10){F(G(0,h,["#f3e3cf","#d9b99b"]),0,0,w,h);F("#fff9",w*.55,h*.12,w*.32,h*.34);sun(w*.7,h*.3,w*.6,"#ffe9a888");x.fillStyle="#8d6e63";x.fillRect(0,h*.78,w,h*.22);x.fillStyle="#a4806d";x.beginPath();x.roundRect(w*.08,h*.58,w*.6,h*.2,24);x.fill();x.fillStyle="#7a5a4a";x.beginPath();x.roundRect(w*.08,h*.5,w*.6,h*.12,24);x.fill()}
+ else{F(G(0,h,["#1f2430","#323a4d"]),0,0,w,h);sun(w*.25,h*.45,w*.55,"#ffcf7a99");F("#2a1d14",0,h*.7,w,h*.3);x.fillStyle="#cfd6e4";x.fillRect(w*.45,h*.55,w*.35,h*.15);x.fillStyle="#111";x.fillRect(w*.5,h*.35,w*.25,h*.2);x.fillStyle="#6aa7ff55";x.fillRect(w*.51,h*.36,w*.23,h*.18)}
+ F(G(0,h,["#0000","#0005"]),0,0,w,h);F("#0003",0,0,w,h)}
+function wrap(x,t,mw){const ws=t.split(" "),L=[];let l="";for(const w of ws){const k=l?l+" "+w:w;if(x.measureText(k).width>mw&&l){L.push(l);l=w}else l=k}L.push(l);return L}
+function render(cv,w,h,it,withText){cv.width=w;cv.height=h;const x=cv.getContext("2d");bgDraw(x,w,h,it);if(!withText)return;
+ const fs=Math.round(w*(h>w*1.5?.062:.056));x.fillStyle="#fff";x.textAlign="center";x.shadowColor="#000a";x.shadowBlur=w*.02;
+ x.font=`italic 500 ${fs}px "Playfair Display",Georgia,serif`;const L=wrap(x,"“"+it.t+"”",w*.8),lh=fs*1.45,y0=h/2-(L.length*lh)/2;
+ x.font=`500 ${w*.026}px Inter,sans-serif`;x.fillText(CATS[it.c].toUpperCase(),w/2,y0-fs*1.3);
+ x.font=`italic 500 ${fs}px "Playfair Display",Georgia,serif`;L.forEach((s,k)=>x.fillText(s,w/2,y0+k*lh+fs));
+ x.font=`500 ${w*.03}px Inter,sans-serif`;x.fillText("— "+NAME,w/2,y0+L.length*lh+fs*1.5);
+ x.font=`300 ${w*.024}px Inter,sans-serif`;x.fillText(new Date(Date.now()+off*864e5).toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"}),w/2,h-h*.04)}
+let cur;
+function show(){cur=pick(dayN(off));$("q").textContent="“"+cur.t+"”";$("cat").textContent=CATS[cur.c];
+ const d=new Date(Date.now()+off*864e5);$("date").textContent=d.toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+ $("st").textContent="Latar: "+(cur.s>=12?"Foto milikmu":SC[cur.s])+" • "+(Object.keys(gen).length?"stok diperbarui bulan ini":"stok bawaan");draw()}
+function draw(){const c=$("bg"),dpr=Math.min(devicePixelRatio||1,2);render(c,Math.round(innerWidth*dpr),Math.round(innerHeight*dpr),cur,false)}
+function tick(){const d=new Date(),p=n=>String(n).padStart(2,"0");$("clock").textContent=`${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;if(off===0&&dayN(0)!==cur.n)show()}
+setInterval(tick,1000);addEventListener("resize",draw);
+$("bp").onclick=()=>{off--;show()};$("bn").onclick=()=>{off++;show()};$("bt").onclick=()=>{off=0;show()};
+let wl=null;async function lock(){try{wl=await navigator.wakeLock.request("screen")}catch(e){}}
+document.addEventListener("visibilitychange",()=>{if(document.fullscreenElement&&document.visibilityState==="visible")lock()});
+$("bf").onclick=async()=>{try{if(document.fullscreenElement){await document.exitFullscreen()}else{await document.documentElement.requestFullscreen();lock()}}catch(e){lock()}};
+document.addEventListener("fullscreenchange",()=>{document.body.classList.toggle("fs",!!document.fullscreenElement);if(!document.fullscreenElement&&wl){wl.release();wl=null}});
+$("bd").onclick=()=>{$("modal").classList.add("on")};$("mc").onclick=()=>{$("modal").classList.remove("on");$("prev").style.display="none"};
+document.querySelectorAll("[data-s]").forEach(b=>b.onclick=async()=>{const[w,h,n]=b.dataset.s.split(",");try{await document.fonts.load('italic 500 40px "Playfair Display"')}catch(e){}
+ const c=document.createElement("canvas");render(c,+w,+h,cur,true);const fn=`quote-${n}-${new Date().toISOString().slice(0,10)}.png`;
+ const blob=await new Promise(r=>c.toBlob(r,"image/png"));let ok=false;
+ try{const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fn;document.body.append(a);a.click();a.remove();ok=true}catch(e){}
+ if(!ok){$("prev").src=c.toDataURL("image/png");$("prev").style.display="block"}});
+// Pembaruan stok otomatis tiap bulan (dibuat oleh Claude, disimpan di perangkat)
+async function refill(){try{const r=await fetch("quotes.json",{cache:"no-cache"});const j=await r.json();if(Array.isArray(j.quotes)){gen={m:j.quotes};show()}}catch(e){}}
+loadImgs();applyCfg();show();tick();refill();
+</script></body></html>
