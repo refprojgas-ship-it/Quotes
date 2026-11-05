@@ -118,6 +118,6 @@ document.querySelectorAll("[data-s]").forEach(b=>b.onclick=async()=>{const[w,h,n
  try{const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fn;document.body.append(a);a.click();a.remove();ok=true}catch(e){}
  if(!ok){$("prev").src=c.toDataURL("image/png");$("prev").style.display="block"}});
 // Pembaruan stok otomatis tiap bulan (dibuat oleh Claude, disimpan di perangkat)
-async function refill(){try{const r=await fetch("quotes.json",{cache:"no-cache"});const j=await r.json();if(Array.isArray(j.quotes)){gen={m:j.quotes};show()}}catch(e){}}
+async function refill(){try{const r=await fetch("quotes.json",{cache:"no-cache"});const j=await r.json();if(Array.isArray(j.quotes)){const d=new Date(),k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");gen={m:j.quotes.filter(q=>!q.m||q.m<=k)};show()}}catch(e){}}
 loadImgs();applyCfg();show();tick();refill();
 </script></body></html>
