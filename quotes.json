@@ -1,1 +1,724 @@
-{"month":"","quotes":[]}
+{
+ "quotes": [
+  {
+   "c": 0,
+   "t": "Cinta tumbuh dari hal sederhana: mendengar, memahami, dan tetap tinggal.",
+   "m": "2026-11"
+  },
+  {
+   "c": 0,
+   "t": "Yang membuatmu bahagia bukan banyaknya janji, tetapi tulusnya kehadiran.",
+   "m": "2026-11"
+  },
+  {
+   "c": 0,
+   "t": "Cinta sejati tidak mengikat, ia memberi ruang untuk saling bertumbuh.",
+   "m": "2026-11"
+  },
+  {
+   "c": 0,
+   "t": "Menyayangi berarti mau belajar bahasa hati orang yang kita sayangi.",
+   "m": "2026-11"
+  },
+  {
+   "c": 0,
+   "t": "Kata maaf yang tulus adalah salah satu bentuk cinta yang paling dewasa.",
+   "m": "2026-11"
+  },
+  {
+   "c": 0,
+   "t": "Rindu adalah doa yang belum sempat diucapkan.",
+   "m": "2026-11"
+  },
+  {
+   "c": 0,
+   "t": "Cinta yang dewasa tidak mencari siapa yang menang, melainkan cara untuk kembali bersama.",
+   "m": "2026-12"
+  },
+  {
+   "c": 0,
+   "t": "Pelukan hangat sering menyembuhkan lebih cepat daripada seribu nasihat.",
+   "m": "2026-12"
+  },
+  {
+   "c": 0,
+   "t": "Mencintai diri sendiri bukan egois, itu cara menjaga hati tetap utuh untuk berbagi.",
+   "m": "2026-12"
+  },
+  {
+   "c": 0,
+   "t": "Cinta paling indah membuatmu ingin menjadi versi terbaik dirimu.",
+   "m": "2026-12"
+  },
+  {
+   "c": 0,
+   "t": "Kesetiaan adalah memilih orang yang sama setiap hari, dengan hati yang sama.",
+   "m": "2026-12"
+  },
+  {
+   "c": 0,
+   "t": "Keluarga adalah tempat pertama kita belajar tentang cinta.",
+   "m": "2026-12"
+  },
+  {
+   "c": 0,
+   "t": "Sabar dalam mencintai adalah cara hati belajar percaya.",
+   "m": "2027-01"
+  },
+  {
+   "c": 0,
+   "t": "Orang yang tepat tidak membuatmu lelah menebak, ia membuatmu tenang.",
+   "m": "2027-01"
+  },
+  {
+   "c": 0,
+   "t": "Kasih sayang yang diam-diam sering lebih tulus daripada yang diumumkan.",
+   "m": "2027-01"
+  },
+  {
+   "c": 0,
+   "t": "Cinta tidak selalu datang dengan bunga, kadang ia hadir lewat segelas teh hangat.",
+   "m": "2027-01"
+  },
+  {
+   "c": 0,
+   "t": "Menerima kekurangan pasangan adalah bentuk cinta yang paling jujur.",
+   "m": "2027-01"
+  },
+  {
+   "c": 0,
+   "t": "Cinta orang tua adalah doa yang tak putus meski kita sering lupa.",
+   "m": "2027-01"
+  },
+  {
+   "c": 0,
+   "t": "Saling menjaga lebih berharga daripada saling memiliki.",
+   "m": "2027-02"
+  },
+  {
+   "c": 0,
+   "t": "Hati yang penuh syukur akan lebih mudah mencintai.",
+   "m": "2027-02"
+  },
+  {
+   "c": 0,
+   "t": "Mencintai dengan tulus berarti bahagia melihat orang lain bahagia.",
+   "m": "2027-02"
+  },
+  {
+   "c": 0,
+   "t": "Jarak hanya menguji, bukan memisahkan hati yang saling percaya.",
+   "m": "2027-02"
+  },
+  {
+   "c": 0,
+   "t": "Cinta yang baik menenangkan, bukan menggelisahkan.",
+   "m": "2027-02"
+  },
+  {
+   "c": 0,
+   "t": "Berbagi tawa dengan orang tersayang adalah kekayaan yang tak bisa dibeli.",
+   "m": "2027-02"
+  },
+  {
+   "c": 1,
+   "t": "Hidup bukan perlombaan; garis finis setiap orang berbeda.",
+   "m": "2026-11"
+  },
+  {
+   "c": 1,
+   "t": "Hargai hari ini, karena ia tidak akan datang dua kali.",
+   "m": "2026-11"
+  },
+  {
+   "c": 1,
+   "t": "Kebahagiaan tidak ditunda sampai semuanya sempurna, ia dipetik sepanjang jalan.",
+   "m": "2026-11"
+  },
+  {
+   "c": 1,
+   "t": "Lepaskan yang tak bisa kamu ubah, dan peluklah yang bisa kamu syukuri.",
+   "m": "2026-11"
+  },
+  {
+   "c": 1,
+   "t": "Kesederhanaan sering menjadi kekayaan yang paling tenang.",
+   "m": "2026-11"
+  },
+  {
+   "c": 1,
+   "t": "Setiap orang membawa bebannya sendiri; berbaiklah tanpa banyak menghakimi.",
+   "m": "2026-11"
+  },
+  {
+   "c": 1,
+   "t": "Perubahan terasa berat, tetapi diam di tempat yang menyakitkan jauh lebih berat.",
+   "m": "2026-12"
+  },
+  {
+   "c": 1,
+   "t": "Waktu tidak menyembuhkan segalanya, tetapi memberi ruang untuk belajar.",
+   "m": "2026-12"
+  },
+  {
+   "c": 1,
+   "t": "Jangan bandingkan bab pertamamu dengan bab kesepuluh orang lain.",
+   "m": "2026-12"
+  },
+  {
+   "c": 1,
+   "t": "Cukup bukan berarti sedikit, cukup berarti hati sudah berdamai.",
+   "m": "2026-12"
+  },
+  {
+   "c": 1,
+   "t": "Hidup paling banyak mengajar lewat hal yang tak berjalan sesuai rencana.",
+   "m": "2026-12"
+  },
+  {
+   "c": 1,
+   "t": "Pagi yang tenang adalah hadiah kecil bagi jiwa yang lelah.",
+   "m": "2026-12"
+  },
+  {
+   "c": 1,
+   "t": "Kebaikan kecil yang kamu tabur hari ini tumbuh di tempat yang tak kau duga.",
+   "m": "2027-01"
+  },
+  {
+   "c": 1,
+   "t": "Orang yang pandai bersyukur jarang kehabisan alasan untuk tersenyum.",
+   "m": "2027-01"
+  },
+  {
+   "c": 1,
+   "t": "Berjalan pelan tidak apa-apa, asal tidak berhenti dan tidak berbalik arah.",
+   "m": "2027-01"
+  },
+  {
+   "c": 1,
+   "t": "Rumah yang damai dimulai dari hati yang saling menghargai.",
+   "m": "2027-01"
+  },
+  {
+   "c": 1,
+   "t": "Kegagalan bukan akhir cerita, hanya tikungan dalam perjalananmu.",
+   "m": "2027-01"
+  },
+  {
+   "c": 1,
+   "t": "Tidak semua yang hilang adalah kerugian; sebagian adalah ruang untuk hal baru.",
+   "m": "2027-01"
+  },
+  {
+   "c": 1,
+   "t": "Hidup lebih ringan ketika kita berhenti membawa dendam.",
+   "m": "2027-02"
+  },
+  {
+   "c": 1,
+   "t": "Secangkir kopi dan langit sore kadang sudah lebih dari cukup.",
+   "m": "2027-02"
+  },
+  {
+   "c": 1,
+   "t": "Kita tumbuh bukan karena hari yang mudah, tetapi karena hari yang melatih.",
+   "m": "2027-02"
+  },
+  {
+   "c": 1,
+   "t": "Jadilah alasan seseorang merasa lebih baik hari ini.",
+   "m": "2027-02"
+  },
+  {
+   "c": 1,
+   "t": "Waktu terbaik memulai adalah ketika kamu berhenti menunggu waktu sempurna.",
+   "m": "2027-02"
+  },
+  {
+   "c": 1,
+   "t": "Hidup bermakna adalah hidup yang bermanfaat bagi sesama.",
+   "m": "2027-02"
+  },
+  {
+   "c": 2,
+   "t": "Mulai saja dulu; kejelasan datang saat kamu bergerak.",
+   "m": "2026-11"
+  },
+  {
+   "c": 2,
+   "t": "Kamu tak harus hebat untuk memulai, tapi harus memulai untuk menjadi hebat.",
+   "m": "2026-11"
+  },
+  {
+   "c": 2,
+   "t": "Keringat hari ini adalah senyum di masa depan.",
+   "m": "2026-11"
+  },
+  {
+   "c": 2,
+   "t": "Jangan takut lambat, takutlah jika kamu berhenti.",
+   "m": "2026-11"
+  },
+  {
+   "c": 2,
+   "t": "Setiap pagi adalah kesempatan kedua yang gratis.",
+   "m": "2026-11"
+  },
+  {
+   "c": 2,
+   "t": "Ketika lelah, istirahatlah; jangan menyerah.",
+   "m": "2026-11"
+  },
+  {
+   "c": 2,
+   "t": "Tekad yang kuat akan menemukan jalannya sendiri.",
+   "m": "2026-12"
+  },
+  {
+   "c": 2,
+   "t": "Hari yang berat melatih bahu yang lebih kuat.",
+   "m": "2026-12"
+  },
+  {
+   "c": 2,
+   "t": "Fokuslah pada kemajuan kecil, bukan kesempurnaan.",
+   "m": "2026-12"
+  },
+  {
+   "c": 2,
+   "t": "Percayalah pada dirimu, bahkan saat belum ada yang melihat hasilnya.",
+   "m": "2026-12"
+  },
+  {
+   "c": 2,
+   "t": "Tujuan besar dicapai oleh langkah kecil yang konsisten.",
+   "m": "2026-12"
+  },
+  {
+   "c": 2,
+   "t": "Gagal hari ini hanyalah data untuk berhasil besok.",
+   "m": "2026-12"
+  },
+  {
+   "c": 2,
+   "t": "Kamu pernah melewati hari yang lebih sulit, dan kamu bertahan.",
+   "m": "2027-01"
+  },
+  {
+   "c": 2,
+   "t": "Disiplin adalah jembatan antara cita-cita dan kenyataan.",
+   "m": "2027-01"
+  },
+  {
+   "c": 2,
+   "t": "Jangan menunggu semangat datang, ciptakan lewat satu tindakan kecil.",
+   "m": "2027-01"
+  },
+  {
+   "c": 2,
+   "t": "Berani mencoba adalah separuh dari keberhasilan.",
+   "m": "2027-01"
+  },
+  {
+   "c": 2,
+   "t": "Usaha yang jujur tidak pernah benar-benar sia-sia.",
+   "m": "2027-01"
+  },
+  {
+   "c": 2,
+   "t": "Kerja keras dan doa adalah dua sayap yang membawamu terbang.",
+   "m": "2027-01"
+  },
+  {
+   "c": 2,
+   "t": "Kerjakan yang bisa hari ini, terima hasilnya esok dengan lega.",
+   "m": "2027-02"
+  },
+  {
+   "c": 2,
+   "t": "Bangkit lagi bukan karena tak sakit, tetapi karena kamu punya alasan.",
+   "m": "2027-02"
+  },
+  {
+   "c": 2,
+   "t": "Mimpimu terlalu berharga untuk ditinggalkan karena rasa takut.",
+   "m": "2027-02"
+  },
+  {
+   "c": 2,
+   "t": "Satu percobaan lagi bisa jadi yang mengubah segalanya.",
+   "m": "2027-02"
+  },
+  {
+   "c": 2,
+   "t": "Teruslah melangkah, bahkan jika jalannya berkabut.",
+   "m": "2027-02"
+  },
+  {
+   "c": 2,
+   "t": "Dirimu yang sekarang sedang dibentuk untuk sesuatu yang besar.",
+   "m": "2027-02"
+  },
+  {
+   "c": 3,
+   "t": "Percayalah, Tuhan menyimpan jawaban terbaik untuk setiap doamu.",
+   "m": "2026-11"
+  },
+  {
+   "c": 3,
+   "t": "Doa tak pernah sia-sia; jawabannya bisa berupa sabar atau ganti yang lebih baik.",
+   "m": "2026-11"
+  },
+  {
+   "c": 3,
+   "t": "Tuhan tidak membebani seseorang melebihi kemampuannya.",
+   "m": "2026-11"
+  },
+  {
+   "c": 3,
+   "t": "Syukur adalah kunci yang membuka pintu nikmat berikutnya.",
+   "m": "2026-11"
+  },
+  {
+   "c": 3,
+   "t": "Tawakal bukan diam, tetapi berusaha lalu menyerahkan hasilnya.",
+   "m": "2026-11"
+  },
+  {
+   "c": 3,
+   "t": "Di setiap kesulitan, Tuhan titipkan kemudahan yang belum terlihat.",
+   "m": "2026-11"
+  },
+  {
+   "c": 3,
+   "t": "Hati yang dekat dengan Tuhan tak mudah goyah oleh keadaan.",
+   "m": "2026-12"
+  },
+  {
+   "c": 3,
+   "t": "Pagi yang kamu lihat hari ini adalah tanda kasih-Nya masih menyertaimu.",
+   "m": "2026-12"
+  },
+  {
+   "c": 3,
+   "t": "Saat tak ada tempat bercerita, Tuhan mendengar tanpa menyela.",
+   "m": "2026-12"
+  },
+  {
+   "c": 3,
+   "t": "Ikhlas melepas adalah cara Tuhan menyiapkan genggamanmu untuk yang lebih baik.",
+   "m": "2026-12"
+  },
+  {
+   "c": 3,
+   "t": "Setiap napas adalah pengingat bahwa kita masih diberi kesempatan.",
+   "m": "2026-12"
+  },
+  {
+   "c": 3,
+   "t": "Berdoalah dengan yakin, lalu biarkan Tuhan bekerja dengan caranya.",
+   "m": "2026-12"
+  },
+  {
+   "c": 3,
+   "t": "Rezeki bukan hanya harta, tetapi juga sehat, tenang, dan orang-orang tersayang.",
+   "m": "2027-01"
+  },
+  {
+   "c": 3,
+   "t": "Tuhan menguji bukan untuk menjatuhkan, melainkan untuk mengangkat derajat.",
+   "m": "2027-01"
+  },
+  {
+   "c": 3,
+   "t": "Tenangkan hatimu dengan mengingat Tuhan, di situlah ketenangan sejati.",
+   "m": "2027-01"
+  },
+  {
+   "c": 3,
+   "t": "Tidak ada air mata yang luput dari perhatian-Nya.",
+   "m": "2027-01"
+  },
+  {
+   "c": 3,
+   "t": "Sabar itu indah karena di ujungnya selalu ada pertolongan.",
+   "m": "2027-01"
+  },
+  {
+   "c": 3,
+   "t": "Jika satu pintu tertutup, Tuhan sedang menyiapkan pintu yang lebih tepat.",
+   "m": "2027-01"
+  },
+  {
+   "c": 3,
+   "t": "Bersyukur saat lapang dan bersabar saat sempit adalah tanda iman.",
+   "m": "2027-02"
+  },
+  {
+   "c": 3,
+   "t": "Kebaikan yang kamu lakukan diam-diam tetap dilihat Yang Maha Melihat.",
+   "m": "2027-02"
+  },
+  {
+   "c": 3,
+   "t": "Serahkan khawatirmu dalam doa, dan rasakan hati menjadi lebih ringan.",
+   "m": "2027-02"
+  },
+  {
+   "c": 3,
+   "t": "Tuhan lebih tahu waktu terbaik, meski kita sering terburu-buru.",
+   "m": "2027-02"
+  },
+  {
+   "c": 3,
+   "t": "Sujud yang panjang sering melahirkan hati yang lapang.",
+   "m": "2027-02"
+  },
+  {
+   "c": 3,
+   "t": "Percaya pada rencana-Nya membuatmu berani menghadapi hari esok.",
+   "m": "2027-02"
+  },
+  {
+   "c": 4,
+   "t": "Perasaanmu valid, tetapi tidak harus menjadi kemudi semua keputusanmu.",
+   "m": "2026-11"
+  },
+  {
+   "c": 4,
+   "t": "Tarik napas dalam, hembuskan perlahan; kamu aman saat ini.",
+   "m": "2026-11"
+  },
+  {
+   "c": 4,
+   "t": "Kecemasan sering membesar saat dihadapi sendirian.",
+   "m": "2026-11"
+  },
+  {
+   "c": 4,
+   "t": "Beri nama pada emosimu, maka ia lebih mudah dipahami.",
+   "m": "2026-11"
+  },
+  {
+   "c": 4,
+   "t": "Tidak apa-apa tidak baik-baik saja; kamu tidak sendirian.",
+   "m": "2026-11"
+  },
+  {
+   "c": 4,
+   "t": "Batasan yang sehat adalah bentuk cinta pada diri sendiri.",
+   "m": "2026-11"
+  },
+  {
+   "c": 4,
+   "t": "Berbicaralah pada dirimu selembut kepada seorang sahabat.",
+   "m": "2026-12"
+  },
+  {
+   "c": 4,
+   "t": "Menunda tak selalu malas, kadang itu tanda kita butuh dukungan.",
+   "m": "2026-12"
+  },
+  {
+   "c": 4,
+   "t": "Overthinking adalah pikiran yang berputar; ia mereda saat kamu bergerak.",
+   "m": "2026-12"
+  },
+  {
+   "c": 4,
+   "t": "Tidur cukup, makan teratur, dan bergerak adalah dasar kesehatan jiwa.",
+   "m": "2026-12"
+  },
+  {
+   "c": 4,
+   "t": "Trauma tidak mendefinisikan dirimu, ia hanya bagian dari ceritamu.",
+   "m": "2026-12"
+  },
+  {
+   "c": 4,
+   "t": "Membandingkan diri di media sosial sering mencuri rasa cukup.",
+   "m": "2026-12"
+  },
+  {
+   "c": 4,
+   "t": "Menangis adalah cara tubuh melepas beban yang terlalu lama ditahan.",
+   "m": "2027-01"
+  },
+  {
+   "c": 4,
+   "t": "Mengakui butuh bantuan adalah tanda kekuatan, bukan kelemahan.",
+   "m": "2027-01"
+  },
+  {
+   "c": 4,
+   "t": "Pikiran negatif datang dan pergi; kamu bukan pikiranmu.",
+   "m": "2027-01"
+  },
+  {
+   "c": 4,
+   "t": "Rutinitas kecil yang konsisten bisa menenangkan pikiran yang kacau.",
+   "m": "2027-01"
+  },
+  {
+   "c": 4,
+   "t": "Memaafkan diri sendiri adalah langkah pertama menuju pemulihan.",
+   "m": "2027-01"
+  },
+  {
+   "c": 4,
+   "t": "Fokus pada yang bisa dikendalikan akan mengurangi kecemasan.",
+   "m": "2027-01"
+  },
+  {
+   "c": 4,
+   "t": "Hubungan yang aman membuatmu menjadi dirimu tanpa takut dihakimi.",
+   "m": "2027-02"
+  },
+  {
+   "c": 4,
+   "t": "Istirahat adalah bagian dari produktivitas, bukan lawannya.",
+   "m": "2027-02"
+  },
+  {
+   "c": 4,
+   "t": "Lelah emosional itu nyata dan layak dirawat.",
+   "m": "2027-02"
+  },
+  {
+   "c": 4,
+   "t": "Kenali pemicu stresmu, lalu siapkan cara menenangkan dirimu.",
+   "m": "2027-02"
+  },
+  {
+   "c": 4,
+   "t": "Syukur harian melatih otak melihat hal baik yang sering terlewat.",
+   "m": "2027-02"
+  },
+  {
+   "c": 4,
+   "t": "Mencari bantuan profesional adalah langkah bijak, bukan aib.",
+   "m": "2027-02"
+  },
+  {
+   "c": 5,
+   "t": "Belajar tanpa mengamalkan seperti menanam tanpa memanen.",
+   "m": "2026-11"
+  },
+  {
+   "c": 5,
+   "t": "Rasa ingin tahu adalah bahan bakar paling murah untuk kemajuan.",
+   "m": "2026-11"
+  },
+  {
+   "c": 5,
+   "t": "Satu buku yang dibaca dengan penuh perhatian lebih berharga daripada seratus yang dilewati.",
+   "m": "2026-11"
+  },
+  {
+   "c": 5,
+   "t": "Guru terbaik adalah pengalaman, dan murid terbaik adalah yang mau merenungkannya.",
+   "m": "2026-11"
+  },
+  {
+   "c": 5,
+   "t": "Ilmu yang dibagikan tidak berkurang, justru bertambah berkah.",
+   "m": "2026-11"
+  },
+  {
+   "c": 5,
+   "t": "Kesalahan adalah cara tercepat memahami sesuatu dengan dalam.",
+   "m": "2026-11"
+  },
+  {
+   "c": 5,
+   "t": "Bertanyalah: mengapa, bagaimana, dan apa lagi yang mungkin?",
+   "m": "2026-12"
+  },
+  {
+   "c": 5,
+   "t": "Yang merasa sudah cukup belajar justru yang paling perlu belajar.",
+   "m": "2026-12"
+  },
+  {
+   "c": 5,
+   "t": "Menulis apa yang kamu pelajari membuat ilmu menetap lebih lama.",
+   "m": "2026-12"
+  },
+  {
+   "c": 5,
+   "t": "Ilmu tanpa adab seperti pelita tanpa minyak.",
+   "m": "2026-12"
+  },
+  {
+   "c": 5,
+   "t": "Mengajarkan orang lain adalah cara terbaik menguasai ilmu.",
+   "m": "2026-12"
+  },
+  {
+   "c": 5,
+   "t": "Kebiasaan membaca membuka jendela ke dunia yang lebih luas.",
+   "m": "2026-12"
+  },
+  {
+   "c": 5,
+   "t": "Berpikir kritis berarti berani memeriksa sebelum mempercayai.",
+   "m": "2027-01"
+  },
+  {
+   "c": 5,
+   "t": "Setiap hari adalah ruang kelas bagi yang mau memperhatikan.",
+   "m": "2027-01"
+  },
+  {
+   "c": 5,
+   "t": "Belajarlah dari siapa saja; perawat, petani, bahkan anak kecil adalah guru.",
+   "m": "2027-01"
+  },
+  {
+   "c": 5,
+   "t": "Pengetahuan memberimu kekuatan, kerendahan hati menjaganya tetap bermanfaat.",
+   "m": "2027-01"
+  },
+  {
+   "c": 5,
+   "t": "Jangan malu tidak tahu; malulah jika tak mau mencari tahu.",
+   "m": "2027-01"
+  },
+  {
+   "c": 5,
+   "t": "Belajar 20 menit tiap hari mengalahkan semangat sesaat semalam suntuk.",
+   "m": "2027-01"
+  },
+  {
+   "c": 5,
+   "t": "Ilmu kesehatan terbaik adalah yang dipraktikkan dalam kebiasaan harian.",
+   "m": "2027-02"
+  },
+  {
+   "c": 5,
+   "t": "Diskusi yang sehat mempertajam ilmu, bukan mempertajam ego.",
+   "m": "2027-02"
+  },
+  {
+   "c": 5,
+   "t": "Belajar adalah perjalanan, bukan tujuan.",
+   "m": "2027-02"
+  },
+  {
+   "c": 5,
+   "t": "Ilmu yang bermanfaat adalah warisan yang tak lekang oleh waktu.",
+   "m": "2027-02"
+  },
+  {
+   "c": 5,
+   "t": "Catatan sederhana hari ini bisa menjadi pelajaran berharga di masa depan.",
+   "m": "2027-02"
+  },
+  {
+   "c": 5,
+   "t": "Kecerdasan tumbuh dari kebiasaan mencoba, gagal, lalu mencoba lagi.",
+   "m": "2027-02"
+  }
+ ]
+}
