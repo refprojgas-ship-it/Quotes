@@ -36,7 +36,7 @@ select{width:100%;padding:8px;border-radius:8px;background:#2a2a30;color:#fff;bo
 </style></head><body>
 <canvas id="bg"></canvas>
 <div class="wrap">
- <div id="brand"><img src="logo.png" alt="Logo Rizal Hypno Center"><span>Rizal Hypno Center</span></div>
+ <div id="brand"><img id="bi" src="logo.png" alt="Logo Rizal Hypno Center"><span id="bt">Rizal Hypno Center</span></div>
 <div id="clock">--:--:--</div><div id="day"></div><div id="date"></div>
 <button id="dn" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:10">✓ Selesai menggeser</button>
  <div class="mid"><span class="chip" id="cat"></span><p id="q"></p><div id="nm">— M. Abdur Rizal, S.Kep.,Ns.,CH.,CHt.</div></div>
@@ -119,7 +119,7 @@ document.addEventListener("visibilitychange",()=>{if(document.fullscreenElement&
 $("bf").onclick=async()=>{try{if(document.fullscreenElement){await document.exitFullscreen()}else{await document.documentElement.requestFullscreen();lock()}}catch(e){lock()}};
 document.addEventListener("fullscreenchange",()=>{document.body.classList.toggle("fs",!!document.fullscreenElement);if(!document.fullscreenElement&&wl){wl.release();wl=null}});
 $("bd").onclick=()=>{$("modal").classList.add("on")};$("mc").onclick=()=>{$("modal").classList.remove("on");$("prev").style.display="none"};
-document.querySelectorAll("[data-s]").forEach(b=>b.onclick=async()=>{const[w,h,n]=b.dataset.s.split(",");try{await document.fonts.load('italic 500 40px "Playfair Display"')}catch(e){}
+document.querySelectorAll("[data-s]").forEach(b=>b.onclick=async()=>{const[w,h,n]=b.dataset.s.split(",");try{await document.fonts.load('italic 500 40px "Playfair Display"');await document.fonts.load('500 20px "'+cfg.bf+'"')}catch(e){}
  const c=document.createElement("canvas");render(c,+w,+h,cur,true);const fn=`quote-${n}-${new Date().toISOString().slice(0,10)}.png`;
  const blob=await new Promise(r=>c.toBlob(r,"image/png"));let ok=false;
  try{const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fn;document.body.append(a);a.click();a.remove();ok=true}catch(e){}
@@ -127,7 +127,7 @@ document.querySelectorAll("[data-s]").forEach(b=>b.onclick=async()=>{const[w,h,n
 // Pembaruan stok otomatis tiap bulan (dibuat oleh Claude, disimpan di perangkat)
 async function refill(){try{const r=await fetch("quotes.json",{cache:"no-cache"});const j=await r.json();if(Array.isArray(j.quotes)){const d=new Date(),k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");gen={m:j.quotes.filter(q=>!q.m||q.m<=k)};show()}}catch(e){}}
 const SYS=Array.from({length:19},(_,i)=>"bg-"+String(i+1).padStart(2,"0")+".jpg?v=2"),DEFPASS="520ba0feced58cf0d56380f2619f76bbed3dc87cb7fee10635686b9db004ad4c";
-let cfg={cx:50,cy:9,cs:64,cf:"Inter",yx:50,yy:17,ys:17,yf:"Inter",dx:50,dy:21,ds:15,df:"Inter",Lcx:50,Lcy:14,Lcs:64,Lyx:50,Lyy:25,Lys:17,Ldx:50,Ldy:31,Lds:15,mode:"mix"},extra=[],bgs=[],passHash=DEFPASS,cache={},loc={};
+let cfg={cx:50,cy:9,cs:64,cf:"Inter",yx:50,yy:17,ys:17,yf:"Inter",dx:50,dy:21,ds:15,df:"Inter",Lcx:50,Lcy:14,Lcs:64,Lyx:50,Lyy:25,Lys:17,Ldx:50,Ldy:31,Lds:15,bls:66,bts:15,bf:"Inter",mode:"mix"},extra=[],bgs=[],passHash=DEFPASS,cache={},loc={};
 const DEF=JSON.parse(JSON.stringify(cfg)),logoI=new Image();logoI.src="logo.png";
 try{loc=JSON.parse(localStorage.getItem("qcfg")||"{}");bgs=JSON.parse(localStorage.getItem("qbg")||"[]")}catch(e){}
 Object.assign(cfg,loc);
@@ -137,16 +137,17 @@ function bsel(n){const base=SYS.length+extra.length,L=bgs.length;return L&&cfg.m
 function bgDraw(x,w,h,it){const N=all().length;let im=null;for(let j=0;j<N;j++){const c=getImg((it.s+j)%N);if(c.complete&&c.naturalWidth){im=c;break}if(!c.err)break}
 if(getImg(it.s).err)$("st").textContent="⚠ Foto latar belum ada di GitHub: "+all()[it.s].split("?")[0];
 if(im){const k=Math.max(w/im.naturalWidth,h/im.naturalHeight),dw=im.naturalWidth*k,dh=im.naturalHeight*k;x.drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);x.fillStyle="#0005";x.fillRect(0,0,w,h)}else scene(x,w,h,it.s%12,it.n)}
-function brandDraw(x,w,h){const s=w*.13,m=w*.04;x.save();x.shadowColor="#000a";x.shadowBlur=w*.012;if(logoI.complete&&logoI.naturalWidth)x.drawImage(logoI,m,m,s,s);x.fillStyle="#fff";x.textAlign="left";x.font="500 "+(w*.034)+"px Inter,sans-serif";x.fillText("Rizal Hypno Center",m+s+w*.025,m+s*.58);x.restore()}
+function brandDraw(x,w,h){const s=w*.13*cfg.bls/66,m=w*.04,fz=w*.034*cfg.bts/15;x.save();x.shadowColor="#000a";x.shadowBlur=w*.012;if(logoI.complete&&logoI.naturalWidth)x.drawImage(logoI,m,m,s,s);x.fillStyle="#fff";x.textAlign="left";x.font="500 "+fz+'px "'+cfg.bf+'",sans-serif';x.fillText("Rizal Hypno Center",m+s+w*.025,m+s/2+fz*.35);x.restore()}
 const PF=[["clock","c"],["day","y"],["date","d"]];
 const land=()=>innerWidth>innerHeight*1.1,K=k=>(land()?"L":"")+k;
 function scl(){const k=Math.min(2.2,Math.max(.8,Math.min(innerWidth,innerHeight*.56)/400)),r=document.documentElement.style;r.setProperty("--k",k);r.setProperty("--u",Math.min(k,1.5));return k}
-function applyCfg(){const k=scl();PF.forEach(([id,p])=>{const e=$(id);e.style.left=cfg[K(p+"x")]+"%";e.style.top=cfg[K(p+"y")]+"%";e.style.fontSize=cfg[K(p+"s")]*k+"px";e.style.fontFamily='"'+cfg[p+"f"]+'",system-ui,sans-serif'})}
+function applyCfg(){const k=scl();PF.forEach(([id,p])=>{const e=$(id);e.style.left=cfg[K(p+"x")]+"%";e.style.top=cfg[K(p+"y")]+"%";e.style.fontSize=cfg[K(p+"s")]*k+"px";e.style.fontFamily='"'+cfg[p+"f"]+'",system-ui,sans-serif'});const u=Math.min(k,1.5),bi=$("bi"),bt=$("bt");bi.style.width=bi.style.height=cfg.bls*u+"px";bt.style.fontSize=cfg.bts*u+"px";bt.style.fontFamily='"'+cfg.bf+'",system-ui,sans-serif'}
 function saveCfg(){try{localStorage.setItem("qcfg",JSON.stringify(cfg))}catch(e){}}
 const NM={c:"Jam",y:"Hari",d:"Tanggal"},SL=[];["c","y","d"].forEach(p=>SL.push([p+"x",NM[p]+": kiri–kanan (%)",0,100],[p+"y",NM[p]+": atas–bawah (%)",3,97],[p+"s",NM[p]+": ukuran (px)",10,p==="c"?160:80]));
+SL.push(["bls","Logo: ukuran (px)",30,200],["bts","Nama brand: ukuran huruf (px)",8,50]);
 const FN=[["Inter","Modern (Inter)"],["Orbitron","Digital (Orbitron)"],["Space Mono","Mesin (Space Mono)"],["Bebas Neue","Tebal (Bebas Neue)"],["Playfair Display","Klasik (Playfair)"],["Cormorant Garamond","Elegan (Cormorant)"],["Dancing Script","Tulisan tangan (Dancing)"],["Poppins","Bulat (Poppins)"],["Righteous","Retro (Righteous)"]];
-function buildFn(){const f=$("fn");f.innerHTML="";[["cf","Font jam"],["yf","Font hari"],["df","Font tanggal"]].forEach(([k,l])=>{const lb=document.createElement("label"),sl=document.createElement("select");lb.textContent=l;FN.forEach(([v,t])=>{const o=document.createElement("option");o.value=v;o.textContent=t;sl.append(o)});sl.value=cfg[k];sl.onchange=()=>{cfg[k]=sl.value;applyCfg();saveCfg()};f.append(lb,sl)})}
-function buildSl(){$("sl").innerHTML="";const h=document.createElement("div");h.style.cssText="font-size:12px;color:#9fd;margin:6px 0";h.textContent="Mengatur tata letak: "+(land()?"layar lebar / mendatar":"layar tegak")+" (tiap orientasi punya posisi sendiri)";$("sl").append(h);SL.forEach(([k,l,a,b])=>{const lb=document.createElement("label"),i=document.createElement("input"),kk=K(k);lb.textContent=l+": "+cfg[kk];i.type="range";i.min=a;i.max=b;i.value=cfg[kk];i.oninput=()=>{cfg[kk]=+i.value;lb.textContent=l+": "+cfg[kk];applyCfg();saveCfg()};$("sl").append(lb,i)})}
+function buildFn(){const f=$("fn");f.innerHTML="";[["cf","Font jam"],["yf","Font hari"],["df","Font tanggal"],["bf","Font tulisan Rizal Hypno Center"]].forEach(([k,l])=>{const lb=document.createElement("label"),sl=document.createElement("select");lb.textContent=l;FN.forEach(([v,t])=>{const o=document.createElement("option");o.value=v;o.textContent=t;sl.append(o)});sl.value=cfg[k];sl.onchange=()=>{cfg[k]=sl.value;applyCfg();saveCfg()};f.append(lb,sl)})}
+function buildSl(){$("sl").innerHTML="";const h=document.createElement("div");h.style.cssText="font-size:12px;color:#9fd;margin:6px 0";h.textContent="Mengatur tata letak: "+(land()?"layar lebar / mendatar":"layar tegak")+" (tiap orientasi punya posisi sendiri)";$("sl").append(h);SL.forEach(([k,l,a,b])=>{const lb=document.createElement("label"),i=document.createElement("input"),kk=/^[cyd][xys]$/.test(k)?K(k):k;lb.textContent=l+": "+cfg[kk];i.type="range";i.min=a;i.max=b;i.value=cfg[kk];i.oninput=()=>{cfg[kk]=+i.value;lb.textContent=l+": "+cfg[kk];applyCfg();saveCfg()};$("sl").append(lb,i)})}
 function buildTh(){const t=$("th");t.innerHTML="";bgs.forEach((u,k)=>{const d=document.createElement("div"),x=document.createElement("b");d.style.backgroundImage="url("+u+")";x.textContent="×";x.onclick=()=>{bgs.splice(k,1);cache={};saveBg();buildTh();show()};d.append(x);t.append(d)});if(!bgs.length)t.textContent="Belum ada foto milik sendiri."}
 function saveBg(){try{localStorage.setItem("qbg",JSON.stringify(bgs));return true}catch(e){alert("Penyimpanan penuh. Hapus beberapa foto dulu.");return false}}
 $("up").onchange=async e=>{for(const f of e.target.files){if(bgs.length>=12){alert("Maksimal 12 foto sendiri.");break}try{const bm=await createImageBitmap(f),k=Math.min(1,1600/Math.max(bm.width,bm.height)),c=document.createElement("canvas");c.width=bm.width*k;c.height=bm.height*k;c.getContext("2d").drawImage(bm,0,0,c.width,c.height);bgs.push(c.toDataURL("image/jpeg",.8));if(!saveBg()){bgs.pop();break}}catch(er){}}e.target.value="";cache={};buildTh();show()};
