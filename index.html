@@ -13,12 +13,12 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 #clock,#day,#date{position:fixed;transform:translate(-50%,-50%);white-space:nowrap;text-shadow:0 2px 12px #0009;z-index:2}
 #clock{font-weight:300;letter-spacing:2px;font-variant-numeric:tabular-nums}
 #day{letter-spacing:3px;text-transform:uppercase}#date{opacity:.92;letter-spacing:1px}
-#brand{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;display:flex;align-items:center;gap:8px;z-index:3;text-shadow:0 2px 10px #000a;font:500 calc(12px*var(--u)) Inter,sans-serif}#brand img{width:calc(40px*var(--u));height:calc(40px*var(--u));border-radius:50%;box-shadow:0 2px 10px #0008}
+#brand{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);left:12px;display:flex;align-items:center;gap:10px;z-index:3;text-shadow:0 2px 10px #000a;font:500 calc(15px*var(--u)) Inter,sans-serif}#brand img{width:calc(66px*var(--u));height:calc(66px*var(--u));border-radius:50%;box-shadow:0 2px 10px #0008}
 .dg #clock,.dg #day,.dg #date{outline:2px dashed #fff;padding:4px 10px;touch-action:none;cursor:move}.dg .foot{display:none}
 .foot{position:absolute;left:0;right:0;bottom:14px}
-.mid{width:min(92vw,calc(380px*var(--k)));text-shadow:0 2px 16px #000a}
+.mid{width:min(94vw,calc(430px*var(--k)));text-shadow:0 2px 16px #000a}
 .chip{display:inline-block;padding:4px 14px;border:1px solid #fff9;border-radius:20px;font-size:calc(11px*var(--u));letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;backdrop-filter:blur(6px);background:#0003}
-#q{font:italic 500 calc(22px*var(--k))/1.45 'Playfair Display',Georgia,serif;margin:0}
+#q{font:italic 500 calc(29px*var(--k))/1.42 'Playfair Display',Georgia,serif;margin:0}
 #nm{margin-top:20px;font-size:calc(13px*var(--u));opacity:.92;letter-spacing:.5px}
 .bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 button{font:500 calc(13px*var(--u)) Inter,sans-serif;color:#fff;background:#0005;border:1px solid #fff6;border-radius:24px;padding:10px 16px;backdrop-filter:blur(8px);cursor:pointer}
@@ -36,7 +36,7 @@ select{width:100%;padding:8px;border-radius:8px;background:#2a2a30;color:#fff;bo
 </style></head><body>
 <canvas id="bg"></canvas>
 <div class="wrap">
- <div id="brand"><span>Rizal Hypno Center</span><img src="logo.png" alt="Logo Rizal Hypno Center"></div>
+ <div id="brand"><img src="logo.png" alt="Logo Rizal Hypno Center"><span>Rizal Hypno Center</span></div>
 <div id="clock">--:--:--</div><div id="day"></div><div id="date"></div>
 <button id="dn" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:10">✓ Selesai menggeser</button>
  <div class="mid"><span class="chip" id="cat"></span><p id="q"></p><div id="nm">— M. Abdur Rizal, S.Kep.,Ns.,CH.,CHt.</div></div>
@@ -100,8 +100,8 @@ function scene(x,w,h,i,seed){const r=rng(seed*97+13+i),G=(a,b,c)=>{const g=x.cre
  F(G(0,h,["#0000","#0005"]),0,0,w,h);F("#0003",0,0,w,h)}
 function wrap(x,t,mw){const ws=t.split(" "),L=[];let l="";for(const w of ws){const k=l?l+" "+w:w;if(x.measureText(k).width>mw&&l){L.push(l);l=w}else l=k}L.push(l);return L}
 function render(cv,w,h,it,withText){cv.width=w;cv.height=h;const x=cv.getContext("2d");bgDraw(x,w,h,it);if(!withText)return;brandDraw(x,w,h);
- const fs=Math.round(w*(h>w*1.5?.062:.056));x.fillStyle="#fff";x.textAlign="center";x.shadowColor="#000a";x.shadowBlur=w*.02;
- x.font=`italic 500 ${fs}px "Playfair Display",Georgia,serif`;const L=wrap(x,"“"+it.t+"”",w*.8),lh=fs*1.45,y0=h/2-(L.length*lh)/2;
+ const fs=Math.round(w*(h>w*1.5?.074:.068));x.fillStyle="#fff";x.textAlign="center";x.shadowColor="#000a";x.shadowBlur=w*.02;
+ x.font=`italic 500 ${fs}px "Playfair Display",Georgia,serif`;const L=wrap(x,"“"+it.t+"”",w*.84),lh=fs*1.45,y0=h/2-(L.length*lh)/2;
  x.font=`500 ${w*.026}px Inter,sans-serif`;x.fillText(CATS[it.c].toUpperCase(),w/2,y0-fs*1.3);
  x.font=`italic 500 ${fs}px "Playfair Display",Georgia,serif`;L.forEach((s,k)=>x.fillText(s,w/2,y0+k*lh+fs));
  x.font=`500 ${w*.03}px Inter,sans-serif`;x.fillText("— "+NAME,w/2,y0+L.length*lh+fs*1.5);
@@ -126,16 +126,18 @@ document.querySelectorAll("[data-s]").forEach(b=>b.onclick=async()=>{const[w,h,n
  if(!ok){$("prev").src=c.toDataURL("image/png");$("prev").style.display="block"}});
 // Pembaruan stok otomatis tiap bulan (dibuat oleh Claude, disimpan di perangkat)
 async function refill(){try{const r=await fetch("quotes.json",{cache:"no-cache"});const j=await r.json();if(Array.isArray(j.quotes)){const d=new Date(),k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");gen={m:j.quotes.filter(q=>!q.m||q.m<=k)};show()}}catch(e){}}
-const SYS=Array.from({length:19},(_,i)=>"bg-"+String(i+1).padStart(2,"0")+".jpg"),DEFPASS="520ba0feced58cf0d56380f2619f76bbed3dc87cb7fee10635686b9db004ad4c";
+const SYS=Array.from({length:19},(_,i)=>"bg-"+String(i+1).padStart(2,"0")+".jpg?v=2"),DEFPASS="520ba0feced58cf0d56380f2619f76bbed3dc87cb7fee10635686b9db004ad4c";
 let cfg={cx:50,cy:9,cs:64,cf:"Inter",yx:50,yy:17,ys:17,yf:"Inter",dx:50,dy:21,ds:15,df:"Inter",Lcx:50,Lcy:14,Lcs:64,Lyx:50,Lyy:25,Lys:17,Ldx:50,Ldy:31,Lds:15,mode:"mix"},extra=[],bgs=[],passHash=DEFPASS,cache={},loc={};
 const DEF=JSON.parse(JSON.stringify(cfg)),logoI=new Image();logoI.src="logo.png";
 try{loc=JSON.parse(localStorage.getItem("qcfg")||"{}");bgs=JSON.parse(localStorage.getItem("qbg")||"[]")}catch(e){}
 Object.assign(cfg,loc);
 const all=()=>[...SYS,...extra,...bgs];
-function getImg(i){if(!cache[i]){const im=new Image();im.onload=()=>{if(cur)draw()};im.src=all()[i];cache[i]=im}return cache[i]}
+function getImg(i){if(!cache[i]){const im=new Image();im.onload=()=>{if(cur)draw()};im.onerror=()=>{im.err=1;if(cur)draw()};im.src=all()[i];cache[i]=im}return cache[i]}
 function bsel(n){const base=SYS.length+extra.length,L=bgs.length;return L&&cfg.mode==="own"?base+n%L:n%(base+L)}
-function bgDraw(x,w,h,it){const im=getImg(it.s);if(im.complete&&im.naturalWidth){const k=Math.max(w/im.naturalWidth,h/im.naturalHeight),dw=im.naturalWidth*k,dh=im.naturalHeight*k;x.drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);x.fillStyle="#0005";x.fillRect(0,0,w,h)}else scene(x,w,h,it.s%12,it.n)}
-function brandDraw(x,w,h){const s=w*.085,m=w*.04;x.save();x.shadowColor="#000a";x.shadowBlur=w*.01;if(logoI.complete&&logoI.naturalWidth)x.drawImage(logoI,w-m-s,m,s,s);x.fillStyle="#fff";x.textAlign="right";x.font="500 "+(w*.026)+"px Inter,sans-serif";x.fillText("Rizal Hypno Center",w-m-s-w*.015,m+s*.6);x.restore()}
+function bgDraw(x,w,h,it){const N=all().length;let im=null;for(let j=0;j<N;j++){const c=getImg((it.s+j)%N);if(c.complete&&c.naturalWidth){im=c;break}if(!c.err)break}
+if(getImg(it.s).err)$("st").textContent="⚠ Foto latar belum ada di GitHub: "+all()[it.s].split("?")[0];
+if(im){const k=Math.max(w/im.naturalWidth,h/im.naturalHeight),dw=im.naturalWidth*k,dh=im.naturalHeight*k;x.drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);x.fillStyle="#0005";x.fillRect(0,0,w,h)}else scene(x,w,h,it.s%12,it.n)}
+function brandDraw(x,w,h){const s=w*.13,m=w*.04;x.save();x.shadowColor="#000a";x.shadowBlur=w*.012;if(logoI.complete&&logoI.naturalWidth)x.drawImage(logoI,m,m,s,s);x.fillStyle="#fff";x.textAlign="left";x.font="500 "+(w*.034)+"px Inter,sans-serif";x.fillText("Rizal Hypno Center",m+s+w*.025,m+s*.58);x.restore()}
 const PF=[["clock","c"],["day","y"],["date","d"]];
 const land=()=>innerWidth>innerHeight*1.1,K=k=>(land()?"L":"")+k;
 function scl(){const k=Math.min(2.2,Math.max(.8,Math.min(innerWidth,innerHeight*.56)/400)),r=document.documentElement.style;r.setProperty("--k",k);r.setProperty("--u",Math.min(k,1.5));return k}
