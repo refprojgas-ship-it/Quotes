@@ -119,5 +119,20 @@ document.querySelectorAll("[data-s]").forEach(b=>b.onclick=async()=>{const[w,h,n
  if(!ok){$("prev").src=c.toDataURL("image/png");$("prev").style.display="block"}});
 // Pembaruan stok otomatis tiap bulan (dibuat oleh Claude, disimpan di perangkat)
 async function refill(){try{const r=await fetch("quotes.json",{cache:"no-cache"});const j=await r.json();if(Array.isArray(j.quotes)){const d=new Date(),k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");gen={m:j.quotes.filter(q=>!q.m||q.m<=k)};show()}}catch(e){}}
+function bgDraw(x,w,h,it){const im=imgs[it.s-12];if(it.s>=12&&im&&im.complete&&im.naturalWidth){const k=Math.max(w/im.naturalWidth,h/im.naturalHeight),dw=im.naturalWidth*k,dh=im.naturalHeight*k;x.drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);x.fillStyle="#0004";x.fillRect(0,0,w,h)}else scene(x,w,h,it.s%12,it.n)}
+let cfg={cx:50,cy:9,cs:64,dx:50,dy:17,ds:15,mode:"mix"},bgs=[],imgs=[];
+try{Object.assign(cfg,JSON.parse(localStorage.getItem("qcfg")||"{}"));bgs=JSON.parse(localStorage.getItem("qbg")||"[]")}catch(e){}
+function loadImgs(){imgs=bgs.map(u=>{const i=new Image();i.onload=()=>{if(cur)draw()};i.src=u;return i})}
+function applyCfg(){const c=$("clock"),d=$("date");c.style.left=cfg.cx+"%";c.style.top=cfg.cy+"%";c.style.fontSize=cfg.cs+"px";d.style.left=cfg.dx+"%";d.style.top=cfg.dy+"%";d.style.fontSize=cfg.ds+"px"}
+function saveCfg(){try{localStorage.setItem("qcfg",JSON.stringify(cfg))}catch(e){}}
+const SL=[["cx","Jam: posisi kiri–kanan (%)",0,100],["cy","Jam: posisi atas–bawah (%)",3,97],["cs","Jam: ukuran (px)",20,160],["dx","Tanggal: posisi kiri–kanan (%)",0,100],["dy","Tanggal: posisi atas–bawah (%)",3,97],["ds","Tanggal: ukuran (px)",10,60]];
+function buildSl(){$("sl").innerHTML="";SL.forEach(([k,l,a,b])=>{const lb=document.createElement("label"),i=document.createElement("input");lb.textContent=l+": "+cfg[k];i.type="range";i.min=a;i.max=b;i.value=cfg[k];i.oninput=()=>{cfg[k]=+i.value;lb.textContent=l+": "+cfg[k];applyCfg();saveCfg()};$("sl").append(lb,i)})}
+function buildTh(){const t=$("th");t.innerHTML="";bgs.forEach((u,k)=>{const d=document.createElement("div"),x=document.createElement("b");d.style.backgroundImage="url("+u+")";x.textContent="×";x.onclick=()=>{bgs.splice(k,1);saveBg();loadImgs();buildTh();show()};d.append(x);t.append(d)});if(!bgs.length)t.textContent="Belum ada foto."}
+function saveBg(){try{localStorage.setItem("qbg",JSON.stringify(bgs));return true}catch(e){alert("Penyimpanan penuh. Hapus beberapa foto dulu.");return false}}
+$("up").onchange=async e=>{for(const f of e.target.files){if(bgs.length>=12){alert("Maksimal 12 foto.");break}try{const bm=await createImageBitmap(f),k=Math.min(1,1600/Math.max(bm.width,bm.height)),c=document.createElement("canvas");c.width=bm.width*k;c.height=bm.height*k;c.getContext("2d").drawImage(bm,0,0,c.width,c.height);bgs.push(c.toDataURL("image/jpeg",.8));if(!saveBg()){bgs.pop();break}}catch(er){}}e.target.value="";loadImgs();buildTh();show()};
+$("mode").onchange=e=>{cfg.mode=e.target.value;saveCfg();show()};
+$("ba").onclick=()=>{$("mode").value=cfg.mode;buildSl();buildTh();$("adm").classList.add("on")};
+$("ac").onclick=()=>$("adm").classList.remove("on");
+$("rs").onclick=()=>{Object.assign(cfg,{cx:50,cy:9,cs:64,dx:50,dy:17,ds:15});saveCfg();applyCfg();buildSl()};
 loadImgs();applyCfg();show();tick();refill();
 </script></body></html>
