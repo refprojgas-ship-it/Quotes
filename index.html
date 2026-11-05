@@ -2,28 +2,31 @@
 <html lang="id"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Quotes Harian</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&family=Playfair+Display:ital,wght@0,500;1,500&family=Orbitron:wght@500&family=Space+Mono&family=Bebas+Neue&family=Cormorant+Garamond:wght@500&family=Dancing+Script:wght@500&family=Poppins:wght@300;500&family=Righteous&display=swap" rel="stylesheet">
 <style>
+:root{--k:1;--u:1}
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}html,body{height:100%;margin:0;background:#111;color:#fff;font-family:Inter,system-ui,sans-serif;overflow:hidden}
 #bg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s}
 .wrap{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 20px 16px;text-align:center}
-#clock,#date{position:fixed;transform:translate(-50%,-50%);white-space:nowrap;text-shadow:0 2px 12px #0008;z-index:2}
+#clock,#day,#date{position:fixed;transform:translate(-50%,-50%);white-space:nowrap;text-shadow:0 2px 12px #0009;z-index:2}
 #clock{font-weight:300;letter-spacing:2px;font-variant-numeric:tabular-nums}
-#date{opacity:.9;letter-spacing:1px}
+#day{letter-spacing:3px;text-transform:uppercase}#date{opacity:.92;letter-spacing:1px}
+#brand{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;display:flex;align-items:center;gap:8px;z-index:3;text-shadow:0 2px 10px #000a;font:500 calc(12px*var(--u)) Inter,sans-serif}#brand img{width:calc(40px*var(--u));height:calc(40px*var(--u));border-radius:50%;box-shadow:0 2px 10px #0008}
+.dg #clock,.dg #day,.dg #date{outline:2px dashed #fff;padding:4px 10px;touch-action:none;cursor:move}.dg .foot{display:none}
 .foot{position:absolute;left:0;right:0;bottom:14px}
-.mid{max-width:760px;text-shadow:0 2px 16px #000a}
-.chip{display:inline-block;padding:4px 14px;border:1px solid #fff9;border-radius:20px;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;backdrop-filter:blur(6px);background:#0003}
-#q{font:italic 500 clamp(21px,5.4vw,38px)/1.45 'Playfair Display',Georgia,serif;margin:0}
-#nm{margin-top:20px;font-size:13px;opacity:.92;letter-spacing:.5px}
+.mid{width:min(92vw,calc(380px*var(--k)));text-shadow:0 2px 16px #000a}
+.chip{display:inline-block;padding:4px 14px;border:1px solid #fff9;border-radius:20px;font-size:calc(11px*var(--u));letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;backdrop-filter:blur(6px);background:#0003}
+#q{font:italic 500 calc(22px*var(--k))/1.45 'Playfair Display',Georgia,serif;margin:0}
+#nm{margin-top:20px;font-size:calc(13px*var(--u));opacity:.92;letter-spacing:.5px}
 .bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-button{font:500 13px Inter,sans-serif;color:#fff;background:#0005;border:1px solid #fff6;border-radius:24px;padding:10px 16px;backdrop-filter:blur(8px);cursor:pointer}
+button{font:500 calc(13px*var(--u)) Inter,sans-serif;color:#fff;background:#0005;border:1px solid #fff6;border-radius:24px;padding:10px 16px;backdrop-filter:blur(8px);cursor:pointer}
 button:active{background:#fff3}
 .fs .bar,.fs #st{opacity:0;pointer-events:none}.fs .wrap:hover .bar{opacity:1;pointer-events:auto}
-#st{font-size:11px;opacity:.6;margin-top:6px}
-#modal,#adm{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;z-index:9;padding:20px}
-#modal.on,#adm.on{display:flex}
+#st{font-size:calc(11px*var(--u));opacity:.6;margin-top:6px}
+#modal,#adm,#lg{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;z-index:9;padding:20px}
+#modal.on,#adm.on,#lg.on{display:flex}
 .box{background:#1b1b1f;border-radius:18px;padding:20px;max-width:340px;width:100%;text-align:center;max-height:88vh;overflow:auto}
 .box h3{margin:0 0 12px;font-weight:500}.box button{display:block;width:100%;margin:8px 0;border-radius:12px}
 #prev{max-width:100%;max-height:50vh;border-radius:10px;margin-bottom:8px;display:none}
@@ -33,7 +36,9 @@ select{width:100%;padding:8px;border-radius:8px;background:#2a2a30;color:#fff;bo
 </style></head><body>
 <canvas id="bg"></canvas>
 <div class="wrap">
- <div id="clock">--:--:--</div><div id="date"></div>
+ <div id="brand"><span>Rizal Hypno Center</span><img src="logo.png" alt="Logo Rizal Hypno Center"></div>
+<div id="clock">--:--:--</div><div id="day"></div><div id="date"></div>
+<button id="dn" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:10">✓ Selesai menggeser</button>
  <div class="mid"><span class="chip" id="cat"></span><p id="q"></p><div id="nm">— M. Abdur Rizal, S.Kep.,Ns.,CH.,CHt.</div></div>
  <div class="foot"><div class="bar">
   <button id="bp">‹ Kemarin</button><button id="bt">Hari ini</button><button id="bn">Besok ›</button>
@@ -45,15 +50,17 @@ select{width:100%;padding:8px;border-radius:8px;background:#2a2a30;color:#fff;bo
  <button data-s="1080,1350,IG-Post-4x5">Instagram Post 4:5 (1080×1350)</button>
  <button data-s="1080,1920,Story">Story WA / IG / TikTok 9:16 (1080×1920)</button>
  <button id="mc">Tutup</button></div></div>
+<div id="lg"><div class="box a"><h3>🔒 Login Admin</h3><input type="password" id="pw" placeholder="Password" style="width:100%;padding:10px;border-radius:8px;border:1px solid #fff3;background:#2a2a30;color:#fff"><div id="lgm" style="color:#f88;font-size:12px;margin:6px 0;min-height:14px"></div><button id="lgo">Masuk</button><button id="lgc">Batal</button></div></div>
 <div id="adm"><div class="box a"><h3>⚙ Menu Admin</h3>
- <h4>Background sendiri</h4>
- <input type="file" id="up" accept="image/*" multiple style="font-size:12px;width:100%">
- <div class="th" id="th"></div>
- <label>Cara pemakaian background</label>
- <select id="mode"><option value="mix">Campur dengan latar bawaan (ganti tiap hari)</option><option value="own">Hanya foto milik saya</option></select>
- <h4>Jam &amp; tanggal</h4><div id="sl"></div>
- <button id="rs">Reset pengaturan</button><button id="ac">Selesai</button>
- <div style="font-size:11px;opacity:.6;margin-top:6px">Pengaturan dan foto tersimpan di browser perangkat ini.</div></div></div>
+<h4>Background</h4><div style="font-size:12px;opacity:.8"><span id="sysn"></span> foto sistem (tetap). Tambah foto sendiri:</div>
+<input type="file" id="up" accept="image/*" multiple style="font-size:12px;width:100%;margin-top:6px"><div class="th" id="th"></div>
+<label>Pemakaian background</label><select id="mode"><option value="mix">Semua foto (sistem + milik saya)</option><option value="own">Hanya foto milik saya</option></select>
+<h4>Jam, hari &amp; tanggal</h4><div id="fn"></div>
+<button id="dg">✋ Geser jam/hari/tanggal di layar</button>
+<details><summary style="font-size:13px;margin:8px 0">Atur manual (slider)</summary><div id="sl"></div></details>
+<button id="rs">Reset tampilan</button>
+<h4>Akun</h4><button id="ex">⬇ Ekspor config.json (untuk semua pengunjung)</button><button id="cp">Ganti password</button><button id="lo">Logout</button><button id="ac">Tutup</button>
+<div style="font-size:11px;opacity:.6;margin-top:6px">Perubahan tersimpan di perangkat ini. Agar berlaku untuk semua pengunjung, ekspor config.json lalu unggah ke GitHub.</div></div></div>
 <script>
 const NAME="M. Abdur Rizal, S.Kep.,Ns.,CH.,CHt.";
 const CATS=["Cinta","Kehidupan","Semangat","Tuhan","Psikologis","Ilmu"];
@@ -71,7 +78,7 @@ let off=0,gen={};
 
 const dayN=o=>{const d=new Date();return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5)+o};
 function pick(n){const c=n%6;const pool=Q[c].concat(Object.values(gen).flat().filter(x=>x.c===c).map(x=>x.t));
- const L=bgs.length;return{c,t:pool[Math.floor(n/6)%pool.length],s:L?(cfg.mode==="own"?12+n%L:n%(12+L)):n%12,n}}
+ const L=bgs.length;return{c,t:pool[Math.floor(n/6)%pool.length],s:bsel(n),n}}
 function rng(s){return()=>(s=(s*16807+7)%2147483647)/2147483647}
 function scene(x,w,h,i,seed){const r=rng(seed*97+13+i),G=(a,b,c)=>{const g=x.createLinearGradient(0,a,0,b);c.forEach((k,j)=>g.addColorStop(j/(c.length-1),k));return g};
  const F=(g,rx,ry,rw,rh)=>{x.fillStyle=g;x.fillRect(rx,ry,rw,rh)};
@@ -92,7 +99,7 @@ function scene(x,w,h,i,seed){const r=rng(seed*97+13+i),G=(a,b,c)=>{const g=x.cre
  else{F(G(0,h,["#1f2430","#323a4d"]),0,0,w,h);sun(w*.25,h*.45,w*.55,"#ffcf7a99");F("#2a1d14",0,h*.7,w,h*.3);x.fillStyle="#cfd6e4";x.fillRect(w*.45,h*.55,w*.35,h*.15);x.fillStyle="#111";x.fillRect(w*.5,h*.35,w*.25,h*.2);x.fillStyle="#6aa7ff55";x.fillRect(w*.51,h*.36,w*.23,h*.18)}
  F(G(0,h,["#0000","#0005"]),0,0,w,h);F("#0003",0,0,w,h)}
 function wrap(x,t,mw){const ws=t.split(" "),L=[];let l="";for(const w of ws){const k=l?l+" "+w:w;if(x.measureText(k).width>mw&&l){L.push(l);l=w}else l=k}L.push(l);return L}
-function render(cv,w,h,it,withText){cv.width=w;cv.height=h;const x=cv.getContext("2d");bgDraw(x,w,h,it);if(!withText)return;
+function render(cv,w,h,it,withText){cv.width=w;cv.height=h;const x=cv.getContext("2d");bgDraw(x,w,h,it);if(!withText)return;brandDraw(x,w,h);
  const fs=Math.round(w*(h>w*1.5?.062:.056));x.fillStyle="#fff";x.textAlign="center";x.shadowColor="#000a";x.shadowBlur=w*.02;
  x.font=`italic 500 ${fs}px "Playfair Display",Georgia,serif`;const L=wrap(x,"“"+it.t+"”",w*.8),lh=fs*1.45,y0=h/2-(L.length*lh)/2;
  x.font=`500 ${w*.026}px Inter,sans-serif`;x.fillText(CATS[it.c].toUpperCase(),w/2,y0-fs*1.3);
@@ -101,11 +108,11 @@ function render(cv,w,h,it,withText){cv.width=w;cv.height=h;const x=cv.getContext
  x.font=`300 ${w*.024}px Inter,sans-serif`;x.fillText(new Date(Date.now()+off*864e5).toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"}),w/2,h-h*.04)}
 let cur;
 function show(){cur=pick(dayN(off));$("q").textContent="“"+cur.t+"”";$("cat").textContent=CATS[cur.c];
- const d=new Date(Date.now()+off*864e5);$("date").textContent=d.toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
- $("st").textContent="Latar: "+(cur.s>=12?"Foto milikmu":SC[cur.s])+" • "+(Object.keys(gen).length?"stok diperbarui bulan ini":"stok bawaan");draw()}
+ const d=new Date(Date.now()+off*864e5);$("day").textContent=d.toLocaleDateString("id-ID",{weekday:"long"});$("date").textContent=d.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
+ $("st").textContent="Latar "+(cur.s+1)+"/"+all().length+" • "+(Object.keys(gen).length?"stok diperbarui bulan ini":"stok bawaan");draw()}
 function draw(){const c=$("bg"),dpr=Math.min(devicePixelRatio||1,2);render(c,Math.round(innerWidth*dpr),Math.round(innerHeight*dpr),cur,false)}
 function tick(){const d=new Date(),p=n=>String(n).padStart(2,"0");$("clock").textContent=`${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;if(off===0&&dayN(0)!==cur.n)show()}
-setInterval(tick,1000);addEventListener("resize",draw);
+setInterval(tick,1000);addEventListener("resize",()=>{applyCfg();draw()});
 $("bp").onclick=()=>{off--;show()};$("bn").onclick=()=>{off++;show()};$("bt").onclick=()=>{off=0;show()};
 let wl=null;async function lock(){try{wl=await navigator.wakeLock.request("screen")}catch(e){}}
 document.addEventListener("visibilitychange",()=>{if(document.fullscreenElement&&document.visibilityState==="visible")lock()});
@@ -119,20 +126,45 @@ document.querySelectorAll("[data-s]").forEach(b=>b.onclick=async()=>{const[w,h,n
  if(!ok){$("prev").src=c.toDataURL("image/png");$("prev").style.display="block"}});
 // Pembaruan stok otomatis tiap bulan (dibuat oleh Claude, disimpan di perangkat)
 async function refill(){try{const r=await fetch("quotes.json",{cache:"no-cache"});const j=await r.json();if(Array.isArray(j.quotes)){const d=new Date(),k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");gen={m:j.quotes.filter(q=>!q.m||q.m<=k)};show()}}catch(e){}}
-function bgDraw(x,w,h,it){const im=imgs[it.s-12];if(it.s>=12&&im&&im.complete&&im.naturalWidth){const k=Math.max(w/im.naturalWidth,h/im.naturalHeight),dw=im.naturalWidth*k,dh=im.naturalHeight*k;x.drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);x.fillStyle="#0004";x.fillRect(0,0,w,h)}else scene(x,w,h,it.s%12,it.n)}
-let cfg={cx:50,cy:9,cs:64,dx:50,dy:17,ds:15,mode:"mix"},bgs=[],imgs=[];
-try{Object.assign(cfg,JSON.parse(localStorage.getItem("qcfg")||"{}"));bgs=JSON.parse(localStorage.getItem("qbg")||"[]")}catch(e){}
-function loadImgs(){imgs=bgs.map(u=>{const i=new Image();i.onload=()=>{if(cur)draw()};i.src=u;return i})}
-function applyCfg(){const c=$("clock"),d=$("date");c.style.left=cfg.cx+"%";c.style.top=cfg.cy+"%";c.style.fontSize=cfg.cs+"px";d.style.left=cfg.dx+"%";d.style.top=cfg.dy+"%";d.style.fontSize=cfg.ds+"px"}
+const SYS=Array.from({length:19},(_,i)=>"bg-"+String(i+1).padStart(2,"0")+".jpg"),DEFPASS="520ba0feced58cf0d56380f2619f76bbed3dc87cb7fee10635686b9db004ad4c";
+let cfg={cx:50,cy:9,cs:64,cf:"Inter",yx:50,yy:17,ys:17,yf:"Inter",dx:50,dy:21,ds:15,df:"Inter",Lcx:50,Lcy:14,Lcs:64,Lyx:50,Lyy:25,Lys:17,Ldx:50,Ldy:31,Lds:15,mode:"mix"},extra=[],bgs=[],passHash=DEFPASS,cache={},loc={};
+const DEF=JSON.parse(JSON.stringify(cfg)),logoI=new Image();logoI.src="logo.png";
+try{loc=JSON.parse(localStorage.getItem("qcfg")||"{}");bgs=JSON.parse(localStorage.getItem("qbg")||"[]")}catch(e){}
+Object.assign(cfg,loc);
+const all=()=>[...SYS,...extra,...bgs];
+function getImg(i){if(!cache[i]){const im=new Image();im.onload=()=>{if(cur)draw()};im.src=all()[i];cache[i]=im}return cache[i]}
+function bsel(n){const base=SYS.length+extra.length,L=bgs.length;return L&&cfg.mode==="own"?base+n%L:n%(base+L)}
+function bgDraw(x,w,h,it){const im=getImg(it.s);if(im.complete&&im.naturalWidth){const k=Math.max(w/im.naturalWidth,h/im.naturalHeight),dw=im.naturalWidth*k,dh=im.naturalHeight*k;x.drawImage(im,(w-dw)/2,(h-dh)/2,dw,dh);x.fillStyle="#0005";x.fillRect(0,0,w,h)}else scene(x,w,h,it.s%12,it.n)}
+function brandDraw(x,w,h){const s=w*.085,m=w*.04;x.save();x.shadowColor="#000a";x.shadowBlur=w*.01;if(logoI.complete&&logoI.naturalWidth)x.drawImage(logoI,w-m-s,m,s,s);x.fillStyle="#fff";x.textAlign="right";x.font="500 "+(w*.026)+"px Inter,sans-serif";x.fillText("Rizal Hypno Center",w-m-s-w*.015,m+s*.6);x.restore()}
+const PF=[["clock","c"],["day","y"],["date","d"]];
+const land=()=>innerWidth>innerHeight*1.1,K=k=>(land()?"L":"")+k;
+function scl(){const k=Math.min(2.2,Math.max(.8,Math.min(innerWidth,innerHeight*.56)/400)),r=document.documentElement.style;r.setProperty("--k",k);r.setProperty("--u",Math.min(k,1.5));return k}
+function applyCfg(){const k=scl();PF.forEach(([id,p])=>{const e=$(id);e.style.left=cfg[K(p+"x")]+"%";e.style.top=cfg[K(p+"y")]+"%";e.style.fontSize=cfg[K(p+"s")]*k+"px";e.style.fontFamily='"'+cfg[p+"f"]+'",system-ui,sans-serif'})}
 function saveCfg(){try{localStorage.setItem("qcfg",JSON.stringify(cfg))}catch(e){}}
-const SL=[["cx","Jam: posisi kiri–kanan (%)",0,100],["cy","Jam: posisi atas–bawah (%)",3,97],["cs","Jam: ukuran (px)",20,160],["dx","Tanggal: posisi kiri–kanan (%)",0,100],["dy","Tanggal: posisi atas–bawah (%)",3,97],["ds","Tanggal: ukuran (px)",10,60]];
-function buildSl(){$("sl").innerHTML="";SL.forEach(([k,l,a,b])=>{const lb=document.createElement("label"),i=document.createElement("input");lb.textContent=l+": "+cfg[k];i.type="range";i.min=a;i.max=b;i.value=cfg[k];i.oninput=()=>{cfg[k]=+i.value;lb.textContent=l+": "+cfg[k];applyCfg();saveCfg()};$("sl").append(lb,i)})}
-function buildTh(){const t=$("th");t.innerHTML="";bgs.forEach((u,k)=>{const d=document.createElement("div"),x=document.createElement("b");d.style.backgroundImage="url("+u+")";x.textContent="×";x.onclick=()=>{bgs.splice(k,1);saveBg();loadImgs();buildTh();show()};d.append(x);t.append(d)});if(!bgs.length)t.textContent="Belum ada foto."}
+const NM={c:"Jam",y:"Hari",d:"Tanggal"},SL=[];["c","y","d"].forEach(p=>SL.push([p+"x",NM[p]+": kiri–kanan (%)",0,100],[p+"y",NM[p]+": atas–bawah (%)",3,97],[p+"s",NM[p]+": ukuran (px)",10,p==="c"?160:80]));
+const FN=[["Inter","Modern (Inter)"],["Orbitron","Digital (Orbitron)"],["Space Mono","Mesin (Space Mono)"],["Bebas Neue","Tebal (Bebas Neue)"],["Playfair Display","Klasik (Playfair)"],["Cormorant Garamond","Elegan (Cormorant)"],["Dancing Script","Tulisan tangan (Dancing)"],["Poppins","Bulat (Poppins)"],["Righteous","Retro (Righteous)"]];
+function buildFn(){const f=$("fn");f.innerHTML="";[["cf","Font jam"],["yf","Font hari"],["df","Font tanggal"]].forEach(([k,l])=>{const lb=document.createElement("label"),sl=document.createElement("select");lb.textContent=l;FN.forEach(([v,t])=>{const o=document.createElement("option");o.value=v;o.textContent=t;sl.append(o)});sl.value=cfg[k];sl.onchange=()=>{cfg[k]=sl.value;applyCfg();saveCfg()};f.append(lb,sl)})}
+function buildSl(){$("sl").innerHTML="";const h=document.createElement("div");h.style.cssText="font-size:12px;color:#9fd;margin:6px 0";h.textContent="Mengatur tata letak: "+(land()?"layar lebar / mendatar":"layar tegak")+" (tiap orientasi punya posisi sendiri)";$("sl").append(h);SL.forEach(([k,l,a,b])=>{const lb=document.createElement("label"),i=document.createElement("input"),kk=K(k);lb.textContent=l+": "+cfg[kk];i.type="range";i.min=a;i.max=b;i.value=cfg[kk];i.oninput=()=>{cfg[kk]=+i.value;lb.textContent=l+": "+cfg[kk];applyCfg();saveCfg()};$("sl").append(lb,i)})}
+function buildTh(){const t=$("th");t.innerHTML="";bgs.forEach((u,k)=>{const d=document.createElement("div"),x=document.createElement("b");d.style.backgroundImage="url("+u+")";x.textContent="×";x.onclick=()=>{bgs.splice(k,1);cache={};saveBg();buildTh();show()};d.append(x);t.append(d)});if(!bgs.length)t.textContent="Belum ada foto milik sendiri."}
 function saveBg(){try{localStorage.setItem("qbg",JSON.stringify(bgs));return true}catch(e){alert("Penyimpanan penuh. Hapus beberapa foto dulu.");return false}}
-$("up").onchange=async e=>{for(const f of e.target.files){if(bgs.length>=12){alert("Maksimal 12 foto.");break}try{const bm=await createImageBitmap(f),k=Math.min(1,1600/Math.max(bm.width,bm.height)),c=document.createElement("canvas");c.width=bm.width*k;c.height=bm.height*k;c.getContext("2d").drawImage(bm,0,0,c.width,c.height);bgs.push(c.toDataURL("image/jpeg",.8));if(!saveBg()){bgs.pop();break}}catch(er){}}e.target.value="";loadImgs();buildTh();show()};
+$("up").onchange=async e=>{for(const f of e.target.files){if(bgs.length>=12){alert("Maksimal 12 foto sendiri.");break}try{const bm=await createImageBitmap(f),k=Math.min(1,1600/Math.max(bm.width,bm.height)),c=document.createElement("canvas");c.width=bm.width*k;c.height=bm.height*k;c.getContext("2d").drawImage(bm,0,0,c.width,c.height);bgs.push(c.toDataURL("image/jpeg",.8));if(!saveBg()){bgs.pop();break}}catch(er){}}e.target.value="";cache={};buildTh();show()};
 $("mode").onchange=e=>{cfg.mode=e.target.value;saveCfg();show()};
-$("ba").onclick=()=>{$("mode").value=cfg.mode;buildSl();buildTh();$("adm").classList.add("on")};
+const sha=async t=>[...new Uint8Array(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t)))].map(b=>b.toString(16).padStart(2,"0")).join("");
+const ADM=()=>{try{return sessionStorage.getItem("qadm")==="1"}catch(e){return false}};
+function openAdm(){$("mode").value=cfg.mode;$("sysn").textContent=SYS.length+extra.length;buildFn();buildSl();buildTh();$("adm").classList.add("on")}
+$("ba").onclick=()=>{ADM()?openAdm():($("lg").classList.add("on"),$("pw").focus())};
+$("lgo").onclick=async()=>{if(await sha($("pw").value)===passHash){try{sessionStorage.setItem("qadm","1")}catch(e){}$("pw").value="";$("lgm").textContent="";$("lg").classList.remove("on");openAdm()}else $("lgm").textContent="Password salah."};
+$("pw").onkeydown=e=>{if(e.key==="Enter")$("lgo").onclick()};
+$("lgc").onclick=()=>$("lg").classList.remove("on");
+$("lo").onclick=()=>{try{sessionStorage.removeItem("qadm")}catch(e){}$("adm").classList.remove("on")};
 $("ac").onclick=()=>$("adm").classList.remove("on");
-$("rs").onclick=()=>{Object.assign(cfg,{cx:50,cy:9,cs:64,dx:50,dy:17,ds:15});saveCfg();applyCfg();buildSl()};
-loadImgs();applyCfg();show();tick();refill();
+$("cp").onclick=async()=>{const p=prompt("Password baru (minimal 6 karakter):");if(p&&p.length>=6){passHash=await sha(p);try{localStorage.setItem("qpass",passHash)}catch(e){}alert("Password diganti di perangkat ini. Agar berlaku di semua perangkat, klik Ekspor config.json lalu unggah ke GitHub.")}else if(p)alert("Terlalu pendek.")};
+$("ex").onclick=()=>{const b=new Blob([JSON.stringify({pass:passHash,cfg:cfg,extra:extra},null,1)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="config.json";document.body.append(a);a.click();a.remove();alert("Unggah file config.json ini ke GitHub (timpa yang lama) agar pengaturan berlaku untuk semua pengunjung.")};
+$("rs").onclick=()=>{const m=cfg.mode;Object.assign(cfg,DEF,{mode:m});saveCfg();applyCfg();buildSl();buildFn()};
+let dragOn=false;
+function setDrag(on){dragOn=on;document.body.classList.toggle("dg",on);$("dn").style.display=on?"block":"none"}
+$("dg").onclick=()=>{$("adm").classList.remove("on");setDrag(true)};$("dn").onclick=()=>{setDrag(false);saveCfg();openAdm()};
+PF.forEach(([id,p])=>{const el=$(id);el.addEventListener("pointerdown",e=>{if(!dragOn)return;e.preventDefault();el.setPointerCapture(e.pointerId);el._d=1});el.addEventListener("pointermove",e=>{if(!el._d)return;cfg[K(p+"x")]=Math.round(Math.min(100,Math.max(0,e.clientX/innerWidth*100)));cfg[K(p+"y")]=Math.round(Math.min(97,Math.max(3,e.clientY/innerHeight*100)));applyCfg()});el.addEventListener("pointerup",()=>{el._d=0;saveCfg()})});
+async function init(){try{const j=await(await fetch("config.json",{cache:"no-cache"})).json();if(j.pass)passHash=j.pass;if(Array.isArray(j.extra))extra=j.extra;Object.assign(cfg,j.cfg||{},loc)}catch(e){}try{const p=localStorage.getItem("qpass");if(p)passHash=p}catch(e){}applyCfg();show()}
+applyCfg();show();tick();refill();init();
 </script></body></html>
